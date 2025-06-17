@@ -187,3 +187,11 @@ div#runtime {
   color: #28b4c8;
   box-shadow: 0 0 5px rgba(28, 69, 218, 0.71);
 }
+@font-face {
+  font-family: 'Normal' ;
+  src: url(/font/LXGWWenKaiGB-Medium.ttf);
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+
+}
