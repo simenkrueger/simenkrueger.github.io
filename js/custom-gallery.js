@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 将信息填充到灯箱中
                 lightboxImg.setAttribute('src', imgSrc);
-                lightboxCaption.textContent = captionText;
-                
+                lightboxCaption.innerHTML = captionText;
                 // 显示灯箱
                 lightbox.style.display = 'flex';
                 // 使用一个极小的延迟来确保 display 的改变被浏览器渲染，从而触发 opacity 的过渡动画
