@@ -123,3 +123,10 @@
     transform: scale(1.2);
     color: #ccc;
 }
+/*
+ * 修复Butterfly主题中页面容器高度塌陷问题
+ * 强制 #content-inner 包裹内部的所有内容，包括照片墙
+ */
+#page-header + #content-inner {
+  overflow: hidden; /* 或者使用 overflow: auto; */
+}
