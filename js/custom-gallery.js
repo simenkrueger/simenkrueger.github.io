@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const captionText = imgElement.getAttribute('data-caption');
 
                 // 将信息填充到灯箱中
-               lightboxImg.setAttribute('src', imgSrc);
-               lightboxCaption.innerHTML = captionText; // <<< 修改完成！现在它能解析HTML了
+                lightboxImg.setAttribute('src', imgSrc);
+                lightboxCaption.textContent = captionText;
                 
                 // 显示灯箱
                 lightbox.style.display = 'flex';
