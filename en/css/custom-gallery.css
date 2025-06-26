@@ -1,0 +1,132 @@
+/* my-blog/source/css/custom-gallery.css */
+
+/* --- 照片墙样式 (这部分保持不变) --- */
+.photo-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.photo-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    list-style: none;
+}
+
+.photo-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* 方案二：Flex布局精确居中（推荐） */
+.photo-item .caption {
+    height: 60px; /* 给标题区域一个固定的高度 */
+    display: flex; /* 启用Flexbox布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    
+    font-size: 18px; /* 字体大小适中增大 */
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.1em; /* 可以把字间距拉得更开一些，显得更优雅 */
+    padding: 0 10px; /* 只需要左右内边距防止文字贴边 */
+}
+
+/* --- 新的灯箱样式 (核心修改部分) --- */
+
+/* 定义一个图片和文字出现的动画 */
+@keyframes fadeInScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 灯箱容器：实现亚克力/玻璃拟态效果 */
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* 核心修改：背景和模糊效果 */
+    background-color: rgba(30, 30, 30, 0.5); /* 半透明深灰色背景 */
+    -webkit-backdrop-filter: blur(15px); /* 模糊背景，兼容 Webkit 内核浏览器 */
+    backdrop-filter: blur(15px); /* 标准的背景模糊滤镜 */
+
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    transition: opacity 0.4s ease; /* 过渡动画更平滑 */
+    z-index: 1000;
+}
+
+/* 灯箱中的图片样式 */
+#lightbox-img {
+    max-width: 90vw;
+    max-height: 75vh; /* 稍微减小高度，为文字留出更多空间 */
+    border-radius: 12px; /* 圆角更柔和 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* 阴影更具层次感 */
+    
+    /* 应用入场动画 */
+    animation: fadeInScaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* 灯箱中的描述文字样式 */
+#lightbox-caption {
+    color: #f0f0f0;
+    font-size: 18px; /* 可以适当调小一点，多行文字更和谐 */
+    font-weight: 500;
+    text-align: left; /* <<< 修改为 left，实现左对齐 */
+    margin-top: 25px; 
+    padding: 0 20px; /* 左右内边距可以小一些 */
+    max-width: 550px; /* 使用一个具体的像素值，排版更稳定 */
+    line-height: 1.7; /* 行高可以稍微大一点，阅读更舒适 */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    animation: fadeInScaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s forwards;
+}
+/* 关闭按钮样式微调 */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* 同样增加阴影 */
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+    color: #ccc;
+}
+/*
+ * 修复Butterfly主题中页面容器高度塌陷问题
+ * 强制 #content-inner 包裹内部的所有内容，包括照片墙
+ */
+#page-header + #content-inner {
+  overflow: hidden; /* 或者使用 overflow: auto; */
+}
